@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+<h1>Upload new File</h1>
+<section class="image as messages">
+{% if images is not undefined %}
+  {% for img in images %}
+  <div class="imageContainer"><b style="color: #000">{{img.user.username}}: </b>
+    <span class="timestamp">{{img.timestamp.strftime('%b-%d-%y %H:%M')}}</span>
+  </div>
+  {% endfor %}
+
+{% else %}
+<div>Just do nothing</div>
+{% endif %}
+<section id="chatbox">
+  <input type="file" id="addedImage"><br>
+  <img src="" height="200" alt="Image preview...">
+</section>
+
+
+</section>
+
+{% endblock %}
