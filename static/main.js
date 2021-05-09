@@ -7,11 +7,11 @@ $(document).ready( ()=>{
 	});
 
 	$('#addedImage').on('change', function(e) {
-		var file = e.originalEvent.target.files[0],
+		let file = e.originalEvent.target.files[0],
 			reader = new FileReader();
  
 		reader.onload = function(evt) {
-			var jsonObject = {
+			const jsonObject = {
 					'imageData': evt.target.result
 				}
  

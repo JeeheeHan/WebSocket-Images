@@ -6,10 +6,10 @@
 {% block body %}
 <h1>Upload new File</h1>
 <section class="image as messages">
-{% if images is not undefined %}
-  {% for img in images %}
-  <div class="imageContainer"><b style="color: #000">{{img.user.username}}: </b>
-    <span class="timestamp">{{img.timestamp.strftime('%b-%d-%y %H:%M')}}</span>
+{% if imgs %}
+  {% for img in imgs %}
+  <div class="imageContainer"><b style="color: #000">Message!</b>
+    <img src={{img.image_path}} id="addedImage"><br>
   </div>
   {% endfor %}
 

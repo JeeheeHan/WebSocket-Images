@@ -21,11 +21,11 @@ class Chat(db.Model):
     id = db.Column(db.Integer,
                     autoincrement = True,
                     primary_key=True)
-    username = db.Column(db.String(30), unique=True)
-    image_path = db.Column(db.String, unique=True)
+    # username = db.Column(db.String(30), unique=True)
+    image_path = db.Column(db.Text, unique=True)
 
     def __repr__(self):
-        return f'<Chat id:{self.id} username:{self.username} image_path:{self.image_path}>'
+        return f'<Chat id:{self.id} image_path:{self.image_base64}>'
 
 
 
