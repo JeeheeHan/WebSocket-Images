@@ -34,9 +34,9 @@ def example_data():
     Chat.query.delete()
 
     # Add sample fake images
-    ab = Chat(image_path="test.png")
-    cd = Chat(image_path="test2.png")
-    ef = Chat(image_path="test3.png")
+    ab = Chat(image_path="./static/images/test.png")
+    cd = Chat(image_path="./static/images/test2.png")
+    ef = Chat(image_path="./static/images/test3.png")
 
 
     db.session.add_all([ab, cd, ef])

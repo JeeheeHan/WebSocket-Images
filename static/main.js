@@ -26,7 +26,7 @@ $(document).ready( ()=>{
 
 	socket.on('add image',(res)=>{
 		//From server get image path to add into DOM and focus view to the added image
-		$('.imagechatbox').append('<img src='+res.imagePath+' class="imagesize"/>')
+		$('.imagechatbox').append('<div class="imageContainer"><img src='+res.imagePath+' class="imagesize"/></div>')
 		$('.imagechatbox').scrollTop($('.imagechatbox')[0].scrollHeight);
 	});
 

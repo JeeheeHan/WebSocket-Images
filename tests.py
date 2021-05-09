@@ -7,8 +7,8 @@ covered = coverage.coverage(branch=True)
 covered.start()
 
 #Create a fake server essentially without disturbing the real one
-from flask import Flask, session, request, json as flask_json
-from flask_socketio import SocketIO, send, emit, Namespace
+from flask import Flask, request
+from flask_socketio import SocketIO, send, emit
 
 from model import connect_to_db, db, example_data
 import crud
@@ -73,7 +73,7 @@ class TestSocketIO(unittest.TestCase):
 
         #on connect server will send args: "connected"
         received = client.get_received()
-        print("\nsocketio.on('connect') ->\n" + str(received)+"\n")
+        print("\nsocketio.on('connect') ->\n received=" + str(received)+"\n")
         self.assertEqual(len(received), 1)
         print("\nLength of received: 1 \n")
         self.assertNotEqual(client.eio_sid, client2.eio_sid)
@@ -119,7 +119,7 @@ class TestSocketIO(unittest.TestCase):
         print("\nclient emitted: \n[{'name': 'new image', 'args': [{'image': 'imageDATAURL'}], 'namespace': '/'}]\n")
         client.emit('new image', {'image':'imageDATAURL'})
         received = client.get_received()
-        print("\nsocketio.on('new image')-> \n" + str(received)+"\n")
+        print("\nsocketio.on('new image')-> \nreceived:" + str(received)+"\n")
         self.assertEqual(len(received), 1)
         print("Length of received = 1")
         self.assertEqual(len(received[0]['args']), 1)
@@ -167,8 +167,8 @@ class FlaskTestDatabase(unittest.TestCase):
         images = crud.pull_latest_images()
         print("List from example data:")
         print(images)
-        self.assertEqual(images[0].image_path, "test.png")
-        print("\nimage[0].image_path = 'test.png'\n")
+        self.assertEqual(images[0].image_path, "./static/images/test.png")
+        print("\nimage[0].image_path = './static/images/test.png'\n")
         print("Test -> test_Chat_list -> Passed")
         print("--"*40)
 

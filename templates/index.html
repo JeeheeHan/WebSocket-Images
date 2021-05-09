@@ -8,20 +8,19 @@
   <div class="container">
     <div class="d-flex justify-content-center">
       <div id="backgroundbox">
-        <h1>Show me your best image</h1>
+        <h2>Show me your best image</h2>
         <section class="imagechatbox">
-          <span>Upload your best image here and show the world! You will also see other submissions</span>
+          <span class="samefont">Upload your best image here and show the world! You will also see other submissions</span>
           <input type="file" id="addedImage" accept="image/*"><br>
+          <div class="samefont">Images will pop up here...</div>
           {% if imgs %}
           {% for img in imgs %}
-          <div>Images will pop up here...</div>
           <div class="imageContainer">
             <img src={{img.image_path}} class="imagesize"><br>
           </div>
           {% endfor %}
           
           {% else %}
-          <div>Images will pop up here...</div>
           {% endif %}
 
         </section>
