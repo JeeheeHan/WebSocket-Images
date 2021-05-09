@@ -4,24 +4,30 @@
 {% endblock head %}
 
 {% block body %}
-<h1>Upload new File</h1>
-<section class="image as messages">
-{% if imgs %}
-  {% for img in imgs %}
-  <div class="imageContainer"><b style="color: #000">Message!</b>
-    <img src={{img.image_path}} id="addedImage"><br>
+<div class="indexpage">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <div id="backgroundbox">
+        <h1>Show me your best image</h1>
+        <section class="imagechatbox">
+          <span>Upload your best image here and show the world! You will also see other submissions</span>
+          <input type="file" id="addedImage" accept="image/*"><br>
+          {% if imgs %}
+          {% for img in imgs %}
+          <div>Images will pop up here...</div>
+          <div class="imageContainer">
+            <img src={{img.image_path}} class="imagesize"><br>
+          </div>
+          {% endfor %}
+          
+          {% else %}
+          <div>Images will pop up here...</div>
+          {% endif %}
+
+        </section>
+      </div>
+    </div>
   </div>
-  {% endfor %}
-
-{% else %}
-<div>Just do nothing</div>
-{% endif %}
-<section id="chatbox">
-  <input type="file" id="addedImage"><br>
-  <img src="" height="200" alt="Image preview...">
-</section>
-
-
-</section>
+</div>
 
 {% endblock %}

@@ -1,0 +1,36 @@
+body{
+    font-family: 'Times New Roman', Times, serif;
+}
+#addedImage{
+    border: 2px solid #eae8e1;
+    background-color: #fffafa;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 12px 12px;
+  }
+
+.imagechatbox{
+    overflow-y: scroll;
+    direction: ltr;
+    background:rgba(255, 255, 255, 0.5);
+    width: 450px;
+    height: 700px;
+}
+
+.imagesize{
+    width:200px;
+    height: auto;
+}
+
+#backgroundbox{
+    background-color: darksalmon;
+}
+
+.imageContainer{
+    border: 2px solid #eae8e1;
+    background-color: #fffafa;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 12px 12px;
+    width:250px;
+}

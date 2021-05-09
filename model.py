@@ -22,12 +22,25 @@ class Chat(db.Model):
                     autoincrement = True,
                     primary_key=True)
     # username = db.Column(db.String(30), unique=True)
-    image_path = db.Column(db.Text, unique=True)
+    image_path = db.Column(db.String, unique=True)
 
     def __repr__(self):
-        return f'<Chat id:{self.id} image_path:{self.image_base64}>'
+        return f'<Chat id:{self.id} image_path:{self.image_path}>'
+
+def example_data():
+    """Create some sample data."""
+
+    # In case this is run more than once, empty out existing data
+    Chat.query.delete()
+
+    # Add sample fake images
+    ab = Chat(image_path="test.png")
+    cd = Chat(image_path="test2.png")
+    ef = Chat(image_path="test3.png")
 
 
+    db.session.add_all([ab, cd, ef])
+    db.session.commit()
 
 if __name__ == '__main__':
     from server import app
