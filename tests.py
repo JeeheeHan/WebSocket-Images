@@ -9,6 +9,8 @@ covered.start()
 #Create a fake server essentially without disturbing the real one
 from flask import Flask, request
 from flask_socketio import SocketIO, send, emit
+import numpy as np
+import base64
 
 from model import connect_to_db, db, example_data
 import crud
@@ -37,13 +39,22 @@ def disconnected():
 @socketio.on('new image')
 def on_custom_event(data):
     """Test emitting back and forth the image"""
-    emit('add image', {'image':'return_image_route'})
-    if not data.get('noackargs'):
-        return data
+    base64_image = data['imageData']
 
-@socketio.on('my custom event')
-def on_custom_event(data):
-    emit('my custom response', data)
+    # imagedata = base64.b64decode(base64_image+'====')
+    filename = str(random.randint(100,200)) + str(random.randint(100,200)) + '.png'
+    save_path = UPLOAD_FOLDER
+    complete_path = os.path.join(save_path, filename)
+
+    crud.add_image_path(complete_path)
+
+    #Write base64 to create an image into /static/images
+    with open(complete_path, 'wb') as new_image:
+        new_image.write(imagedata)
+        new_image.close()    
+
+    emit('add image', {'imagePath':complete_path}, broadcast=True)
+
     if not data.get('noackargs'):
         return data
 
@@ -110,6 +121,9 @@ class TestSocketIO(unittest.TestCase):
 
     def test_emit_images(self):
         """Testing on image data is emitted"""
+        #Test image. get it locally and use it to test
+        # image = load()
+
         print("--"*40)
         print("Test for image data exchange")
         print("--"*40)  
@@ -117,9 +131,18 @@ class TestSocketIO(unittest.TestCase):
         client = socketio.test_client(app)
         client.get_received()
         print("\nclient emitted: \n[{'name': 'new image', 'args': [{'image': 'imageDATAURL'}], 'namespace': '/'}]\n")
-        client.emit('new image', {'image':'imageDATAURL'})
+        
+        with open("test_image.png",'rb') as test_image:
+            test_base64 = base64.b64encode(test_image.read())
+        
+        client.emit('new image', {'imageData':test_base64})
         received = client.get_received()
-        print("\nsocketio.on('new image')-> \nreceived:" + str(received)+"\n")
+
+        print("test worked here")
+
+        self.assertEqual(type(received['image']),str)
+
+        # print("\nsocketio.on('new image')-> \nreceived:" + str(received)+"\n")
         self.assertEqual(len(received), 1)
         print("Length of received = 1")
         self.assertEqual(len(received[0]['args']), 1)
@@ -131,7 +154,7 @@ class TestSocketIO(unittest.TestCase):
         print("\nTest -> test_emit_images -> Passed")
         print("--"*40)      
 
-
+covered.stop()
 
 class FlaskTestDatabase(unittest.TestCase):
     """Flask tests that use the database."""
